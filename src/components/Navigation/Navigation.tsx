@@ -75,7 +75,7 @@ const Navigation: React.FC = () => {
                     <Icon icon="solar:leaf-bold-duotone" className="text-white text-2xl" />
                   </div>
                   <span className={`font-rubik font-bold text-2xl hidden sm:block ${
-                    isScrolled ? 'text-white' : 'text-gray-800'
+                    isScrolled ? 'text-gray-800' : 'text-gray-800'
                   }`}>
                     Farm Aris
                   </span>
@@ -92,7 +92,7 @@ const Navigation: React.FC = () => {
                       whileTap={{ scale: 0.95 }}
                       className={`px-4 py-2 font-montserrat font-medium rounded-lg transition-all duration-300 flex items-center gap-2 ${
                         isScrolled 
-                          ? 'text-white/90 hover:text-white hover:bg-white/10' 
+                          ? 'text-gray-800 hover:text-safari-khaki hover:bg-safari-khaki/10' 
                           : 'text-gray-700 hover:text-safari-khaki hover:bg-safari-khaki/10'
                       }`}
                     >
@@ -106,11 +106,24 @@ const Navigation: React.FC = () => {
                 <div className="flex items-center gap-3">
                   {user ? (
                     <div className="relative">
+                      {/* Pulsating Ring for Logged-in Users */}
+                      <motion.div
+                        className="absolute inset-0 rounded-full border-2 border-green-400"
+                        animate={{
+                          scale: [1, 1.3, 1],
+                          opacity: [0.8, 0.3, 0.8]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
                       <motion.button
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => setShowUserMenu(!showUserMenu)}
-                        className="w-10 h-10 bg-safari-khaki rounded-full flex items-center justify-center text-white hover:bg-safari-khaki/80 transition-all duration-300"
+                        className="relative w-10 h-10 bg-safari-khaki rounded-full flex items-center justify-center text-white hover:bg-safari-khaki/80 transition-all duration-300 border-2 border-green-400"
                       >
                         <Icon icon="solar:user-bold-duotone" className="text-xl" />
                       </motion.button>
@@ -157,13 +170,9 @@ const Navigation: React.FC = () => {
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => setShowLogin(true)}
-                      className={`w-10 h-10 backdrop-blur-md rounded-full flex items-center justify-center transition-all duration-300 ${
-                        isScrolled 
-                          ? 'bg-white/20 text-white hover:bg-white/30' 
-                          : 'bg-safari-khaki/20 text-safari-khaki hover:bg-safari-khaki/30'
-                      }`}
+                      className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-400 hover:text-gray-600 transition-all duration-300"
                     >
-                      <Icon icon="solar:login-2-bold-duotone" className="text-xl" />
+                      <Icon icon="solar:user-bold-duotone" className="text-xl" />
                     </motion.button>
                   )}
 
@@ -173,7 +182,7 @@ const Navigation: React.FC = () => {
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     className={`lg:hidden w-10 h-10 backdrop-blur-md rounded-full flex items-center justify-center transition-all duration-300 ${
                       isScrolled 
-                        ? 'bg-white/10 text-white' 
+                        ? 'bg-gray-800/10 text-gray-800' 
                         : 'bg-gray-800/10 text-gray-800'
                     }`}
                   >
