@@ -396,16 +396,16 @@ const Hero: React.FC = () => {
           transition={{ duration: 0.8, delay: 1 }}
           className="flex flex-col sm:flex-row gap-6 justify-center"
         >
-          {/* RSVP Now - Premium Glassmorphic Button */}
+          {/* RSVP Now - Bold Attention-Grabbing Button */}
           <motion.button
-            whileHover={{ scale: 1.05, y: -2 }}
+            whileHover={{ scale: 1.08, y: -3 }}
             whileTap={{ scale: 0.95 }}
-            className="group relative px-10 py-4 backdrop-blur-lg bg-gradient-to-r from-white/20 to-white/10 border border-white/30 rounded-full font-semibold text-white shadow-2xl overflow-hidden transition-all duration-500"
+            className="group relative px-12 py-5 backdrop-blur-md rounded-full font-bold text-white shadow-2xl overflow-hidden transition-all duration-300"
             style={{
-              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.1) 100%)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1)',
+              background: 'linear-gradient(135deg, #FF6B35 0%, #C19A6B 50%, #FF6B35 100%)',
+              backdropFilter: 'blur(10px)',
+              WebkitBackdropFilter: 'blur(10px)',
+              boxShadow: '0 12px 40px rgba(255, 107, 53, 0.4), 0 0 0 2px rgba(255, 255, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
             }}
             onClick={() => {
               const element = document.getElementById('rsvp');
@@ -415,52 +415,45 @@ const Hero: React.FC = () => {
               }
             }}
           >
-            {/* Animated Gradient Background */}
+            {/* Pulsing Glow Effect */}
             <motion.div
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              className="absolute inset-0 rounded-full"
               style={{
-                background: 'linear-gradient(135deg, rgba(199, 154, 107, 0.3) 0%, rgba(255, 107, 53, 0.3) 100%)',
+                background: 'linear-gradient(135deg, #FF6B35 0%, #C19A6B 100%)',
+                filter: 'blur(8px)',
               }}
               animate={{ 
-                background: [
-                  'linear-gradient(135deg, rgba(199, 154, 107, 0.3) 0%, rgba(255, 107, 53, 0.3) 100%)',
-                  'linear-gradient(135deg, rgba(255, 107, 53, 0.3) 0%, rgba(199, 154, 107, 0.3) 100%)',
-                  'linear-gradient(135deg, rgba(199, 154, 107, 0.3) 0%, rgba(255, 107, 53, 0.3) 100%)',
-                ]
+                opacity: [0.3, 0.6, 0.3],
+                scale: [1, 1.1, 1]
               }}
-              transition={{ duration: 3, repeat: Infinity }}
+              transition={{ duration: 2, repeat: Infinity }}
             />
             
             {/* Button Content */}
-            <span className="relative flex items-center gap-3 justify-center font-montserrat font-bold text-lg">
+            <span className="relative flex items-center gap-3 justify-center font-montserrat font-black text-xl z-10">
               <motion.div
-                animate={{ rotate: [0, 5, -5, 0] }}
-                transition={{ duration: 4, repeat: Infinity }}
+                animate={{ 
+                  rotate: [0, 10, -10, 0],
+                  scale: [1, 1.1, 1]
+                }}
+                transition={{ duration: 3, repeat: Infinity }}
               >
-                <Icon icon="solar:letter-bold-duotone" className="text-xl" />
+                <Icon icon="solar:letter-bold-duotone" className="text-2xl drop-shadow-lg" />
               </motion.div>
-              RSVP Now
+              <span className="drop-shadow-lg tracking-wide">RSVP NOW</span>
             </span>
-            
-            {/* Subtle Inner Glow */}
-            <div 
-              className="absolute inset-0.5 rounded-full opacity-50 group-hover:opacity-70 transition-opacity duration-500"
-              style={{
-                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
-              }}
-            />
           </motion.button>
 
-          {/* View Schedule - Elegant Glassmorphic Button */}
+          {/* View Schedule - Striking Secondary Button */}
           <motion.button
-            whileHover={{ scale: 1.05, y: -2 }}
+            whileHover={{ scale: 1.08, y: -3 }}
             whileTap={{ scale: 0.95 }}
-            className="group relative px-10 py-4 backdrop-blur-lg bg-gradient-to-r from-white/15 to-white/5 border border-white/20 rounded-full font-semibold text-white shadow-2xl overflow-hidden transition-all duration-500"
+            className="group relative px-12 py-5 backdrop-blur-md rounded-full font-bold text-gray-800 shadow-2xl overflow-hidden transition-all duration-300"
             style={{
-              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.05) 100%)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.08)',
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%)',
+              backdropFilter: 'blur(10px)',
+              WebkitBackdropFilter: 'blur(10px)',
+              boxShadow: '0 12px 40px rgba(0, 0, 0, 0.15), 0 0 0 2px rgba(255, 255, 255, 0.8), inset 0 1px 0 rgba(255, 255, 255, 1)',
             }}
             onClick={() => {
               const element = document.getElementById('schedule');
@@ -470,40 +463,35 @@ const Hero: React.FC = () => {
               }
             }}
           >
-            {/* Animated Subtle Background */}
+            {/* Subtle Shimmer Effect */}
             <motion.div
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100"
               style={{
-                background: 'linear-gradient(135deg, rgba(74, 95, 62, 0.2) 0%, rgba(135, 206, 235, 0.2) 100%)',
+                background: 'linear-gradient(135deg, rgba(199, 154, 107, 0.2) 0%, rgba(74, 95, 62, 0.2) 100%)',
               }}
               animate={{ 
                 background: [
-                  'linear-gradient(135deg, rgba(74, 95, 62, 0.2) 0%, rgba(135, 206, 235, 0.2) 100%)',
-                  'linear-gradient(135deg, rgba(135, 206, 235, 0.2) 0%, rgba(74, 95, 62, 0.2) 100%)',
-                  'linear-gradient(135deg, rgba(74, 95, 62, 0.2) 0%, rgba(135, 206, 235, 0.2) 100%)',
+                  'linear-gradient(135deg, rgba(199, 154, 107, 0.2) 0%, rgba(74, 95, 62, 0.2) 100%)',
+                  'linear-gradient(135deg, rgba(74, 95, 62, 0.2) 0%, rgba(199, 154, 107, 0.2) 100%)',
+                  'linear-gradient(135deg, rgba(199, 154, 107, 0.2) 0%, rgba(74, 95, 62, 0.2) 100%)',
                 ]
               }}
-              transition={{ duration: 4, repeat: Infinity }}
+              transition={{ duration: 3, repeat: Infinity }}
             />
             
             {/* Button Content */}
-            <span className="relative flex items-center gap-3 justify-center font-montserrat font-bold text-lg">
+            <span className="relative flex items-center gap-3 justify-center font-montserrat font-black text-xl z-10">
               <motion.div
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 3, repeat: Infinity }}
+                animate={{ 
+                  scale: [1, 1.2, 1],
+                  rotate: [0, 5, 0]
+                }}
+                transition={{ duration: 2.5, repeat: Infinity }}
               >
-                <Icon icon="solar:calendar-date-bold-duotone" className="text-xl" />
+                <Icon icon="solar:calendar-date-bold-duotone" className="text-2xl text-safari-khaki drop-shadow-sm" />
               </motion.div>
-              View Schedule
+              <span className="tracking-wide text-gray-700">VIEW SCHEDULE</span>
             </span>
-            
-            {/* Subtle Inner Highlight */}
-            <div 
-              className="absolute inset-0.5 rounded-full opacity-40 group-hover:opacity-60 transition-opacity duration-500"
-              style={{
-                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%)',
-              }}
-            />
           </motion.button>
         </motion.div>
       </div>
