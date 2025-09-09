@@ -250,7 +250,10 @@ const Hero: React.FC = () => {
             
             {/* Subtle Royal Sparkles */}
             <motion.div
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-gradient-radial from-yellow-300 to-transparent rounded-full opacity-30"
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-2 h-2 rounded-full opacity-30"
+              style={{
+                background: 'radial-gradient(circle, rgba(253, 224, 71, 0.8) 0%, transparent 70%)'
+              }}
               animate={{
                 scale: [0, 1.5, 0],
                 opacity: [0, 0.6, 0]
