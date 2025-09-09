@@ -7,7 +7,11 @@ const Hero: React.FC = () => {
   const eventDate = new Date('2025-10-10T16:00:00');
   const timeLeft = useCountdown(eventDate);
   
-  const imageUrl = `https://plus.unsplash.com/premium_photo-1661962685099-c6a685e6c61d?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&bust=${Date.now()}`;
+  // Farm Aris field images - showcasing our actual farm
+  const farmImages = [
+    '/images/faris2.jpg', // Your beautiful wide-angle cabbage field with tractor
+    '/images/ar.png' // Backup cabbage field image
+  ];
 
   const CountdownBox = ({ value, label }: { value: number; label: string }) => (
     <div className="bg-white/95 backdrop-blur-lg rounded-xl p-4 md:p-6 border border-white shadow-xl">
@@ -22,26 +26,25 @@ const Hero: React.FC = () => {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Beautiful Farm Background */}
+      {/* Beautiful Farm Aris Background */}
       <div className="absolute inset-0 z-0">
         <img 
-          src={imageUrl}
-          alt="Herd of sheep grazing on dry grass field - Farm Aris"
+          src={farmImages[0]}
+          alt="Expansive cabbage fields at Farm Aris with farming equipment - Grootfontein, Namibia"
           className="w-full h-full object-cover"
-          crossOrigin="anonymous"
-          onLoad={() => console.log('Hero image loaded successfully')}
+          onLoad={() => console.log('Farm Aris hero image loaded successfully')}
           onError={(e) => {
-            console.error('Hero image failed to load, trying backup:', imageUrl);
-            // Try backup image first
-            const backupUrl = "https://images.unsplash.com/photo-1500595046743-cd271d694d30?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80";
-            if (!e.currentTarget.src.includes('photo-1500595046743')) {
-              e.currentTarget.src = backupUrl;
+            console.error('Primary farm image failed to load, trying backup');
+            // Try the backup farm image
+            if (!e.currentTarget.src.includes('ar.png')) {
+              e.currentTarget.src = farmImages[1];
+              e.currentTarget.alt = 'Lush cabbage fields at Farm Aris - Grootfontein, Namibia';
               return;
             }
-            // Final fallback to gradient if both images fail
+            // Final fallback to beautiful farm gradient
             e.currentTarget.style.display = 'none';
             const fallback = document.createElement('div');
-            fallback.className = 'absolute inset-0 bg-gradient-to-br from-acacia-green via-safari-khaki to-sunset-orange';
+            fallback.className = 'absolute inset-0 bg-gradient-to-br from-green-600 via-yellow-500 to-orange-500';
             e.currentTarget.parentElement?.appendChild(fallback);
           }}
         />
@@ -99,12 +102,167 @@ const Hero: React.FC = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-rubik font-black text-white mb-4 drop-shadow-2xl">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-rubik font-black text-white mb-4 drop-shadow-2xl">
             Grand Opening of
           </h1>
-          <h2 className="text-6xl md:text-8xl lg:text-9xl font-rubik font-black text-white mb-6 drop-shadow-2xl">
-            Farm Aris
-          </h2>
+          
+          {/* Royal Elegant Farm Aris Title */}
+          <div className="relative mb-6">
+            <div className="flex items-center justify-center gap-8 md:gap-12">
+              {/* Left Royal Ornament */}
+              <motion.div 
+                className="flex items-center gap-2"
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1, delay: 0.5 }}
+              >
+                <motion.div
+                  animate={{ rotate: [0, 10, -10, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <Icon icon="solar:crown-bold-duotone" className="text-yellow-300 text-4xl md:text-6xl opacity-80" />
+                </motion.div>
+                <motion.div
+                  className="w-16 md:w-24 h-0.5 bg-gradient-to-r from-transparent via-yellow-300 to-transparent"
+                  animate={{ scaleX: [0.7, 1, 0.7], opacity: [0.5, 0.8, 0.5] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                />
+              </motion.div>
+
+              {/* Main Title */}
+              <motion.h2 
+                className="text-6xl md:text-8xl lg:text-9xl font-rubik font-black relative z-10 text-white"
+                style={{
+                  textShadow: `
+                    0 0 10px rgba(255, 255, 255, 0.4),
+                    0 0 20px rgba(199, 154, 107, 0.3),
+                    0 0 30px rgba(255, 107, 53, 0.2),
+                    2px 2px 4px rgba(0, 0, 0, 0.8),
+                    4px 4px 8px rgba(0, 0, 0, 0.5)
+                  `,
+                  filter: 'drop-shadow(0 0 15px rgba(255, 255, 255, 0.2))',
+                }}
+              >
+                <span className="relative">
+                  Farm Aris
+                  {/* Elegant Shine Sweep - Every 5 Seconds */}
+                  <motion.span
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0"
+                    style={{
+                      backgroundClip: 'text',
+                      WebkitBackgroundClip: 'text',
+                      mixBlendMode: 'overlay'
+                    }}
+                    animate={{
+                      opacity: [0, 0, 0, 0.5, 0, 0, 0, 0, 0, 0],
+                      x: ['-100%', '-100%', '-100%', '100%', '100%', '100%', '100%', '100%', '100%', '100%']
+                    }}
+                    transition={{
+                      duration: 5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      times: [0, 0.2, 0.3, 0.7, 0.8, 1]
+                    }}
+                  />
+                </span>
+              </motion.h2>
+
+              {/* Right Royal Ornament */}
+              <motion.div 
+                className="flex items-center gap-2"
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1, delay: 0.5 }}
+              >
+                <motion.div
+                  className="w-16 md:w-24 h-0.5 bg-gradient-to-r from-transparent via-yellow-300 to-transparent"
+                  animate={{ scaleX: [0.7, 1, 0.7], opacity: [0.5, 0.8, 0.5] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+                />
+                <motion.div
+                  animate={{ rotate: [0, -10, 10, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                >
+                  <Icon icon="solar:crown-bold-duotone" className="text-yellow-300 text-4xl md:text-6xl opacity-80" />
+                </motion.div>
+              </motion.div>
+            </div>
+            
+            {/* Enhanced Celebratory Animations */}
+            {/* Floating Confetti */}
+            <motion.div
+              className="absolute -top-8 left-1/4 w-1.5 h-1.5 bg-yellow-200 rounded-full opacity-70"
+              animate={{
+                scale: [0, 1.2, 0],
+                y: [0, -15, 0],
+                opacity: [0, 0.7, 0]
+              }}
+              transition={{
+                duration: 3.5,
+                repeat: Infinity,
+                ease: "easeOut",
+                delay: 1,
+              }}
+            />
+            <motion.div
+              className="absolute -top-12 right-1/4 w-1 h-1 bg-orange-200 rounded-full opacity-60"
+              animate={{
+                scale: [0, 1, 0],
+                x: [0, 10, 0],
+                opacity: [0, 0.6, 0]
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeOut",
+                delay: 2.5,
+              }}
+            />
+            <motion.div
+              className="absolute -bottom-6 left-1/3 w-1 h-1 bg-green-200 rounded-full opacity-50"
+              animate={{
+                scale: [0, 1.5, 0],
+                y: [0, -8, 0],
+                rotate: [0, 180, 360],
+                opacity: [0, 0.5, 0]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeOut",
+                delay: 0.5,
+              }}
+            />
+            <motion.div
+              className="absolute -bottom-10 right-1/3 w-1.5 h-1.5 bg-blue-200 rounded-full opacity-40"
+              animate={{
+                scale: [0, 0.8, 0],
+                x: [0, -12, 0],
+                opacity: [0, 0.4, 0]
+              }}
+              transition={{
+                duration: 5,
+                repeat: Infinity,
+                ease: "easeOut",
+                delay: 1.5,
+              }}
+            />
+            
+            {/* Subtle Royal Sparkles */}
+            <motion.div
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-gradient-radial from-yellow-300 to-transparent rounded-full opacity-30"
+              animate={{
+                scale: [0, 1.5, 0],
+                opacity: [0, 0.6, 0]
+              }}
+              transition={{
+                duration: 6,
+                repeat: Infinity,
+                ease: "easeOut",
+                delay: 3,
+              }}
+            />
+          </div>
         </motion.div>
 
         {/* Subtitle */}
