@@ -7,9 +7,17 @@ Premium event website for the Farm Aris Grand Opening in Grootfontein, Namibia. 
 
 ### Core Setup
 - **Framework**: Vite + React + TypeScript
+- **Database**: Supabase (PostgreSQL)
 - **Styling**: Tailwind CSS with custom configuration
 - **Icons**: Iconify React (Solar Bold Duotone icons)
 - **Typography**: Rubik font (headers) + Montserrat font (body)
+
+### Database & Backend
+- **Database**: Supabase PostgreSQL
+- **Authentication**: Supabase Auth
+- **Real-time**: Supabase Realtime subscriptions
+- **Storage**: Supabase Storage (for images/media)
+- **API**: Auto-generated REST API from Supabase
 
 ## 2. Premium Features & Components
 
@@ -99,6 +107,15 @@ src/
 │   ├── useWeather.ts
 │   ├── useIntersectionObserver.ts
 │   └── useLocalStorage.ts
+├── lib/
+│   └── supabase.ts
+├── services/
+│   ├── rsvpService.ts
+│   ├── activitiesService.ts
+│   ├── galleryService.ts
+│   └── weatherService.ts
+├── types/
+│   └── database.types.ts
 ├── utils/
 │   ├── animations.ts
 │   ├── api.ts
@@ -159,13 +176,134 @@ src/
 - Native share functionality
 - Push notifications support
 
-## 8. Backend Integration Ready
-- API endpoints structure
-- Database schema for RSVPs
-- Real-time updates with WebSockets
-- Payment gateway integration ready
-- Email service integration
-- SMS notification system
+## 8. Supabase Database Integration
+
+### 🔧 Database Configuration
+- **Project URL**: https://jyvgjcagmmtiqgexqgwa.supabase.co
+- **Environment**: Production-ready with environment variables
+- **Client**: TypeScript-first with auto-generated types
+
+### 🗄️ Database Schema
+
+#### Core Tables:
+```sql
+-- RSVPs Table
+CREATE TABLE rsvps (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  phone TEXT,
+  num_guests INTEGER DEFAULT 1,
+  dietary_requirements TEXT,
+  accommodation_needed BOOLEAN DEFAULT FALSE,
+  transportation_needed BOOLEAN DEFAULT FALSE,
+  message TEXT,
+  status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'confirmed', 'cancelled')),
+  qr_code TEXT,
+  ticket_id TEXT
+);
+
+-- Activities Table
+CREATE TABLE activities (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  name TEXT NOT NULL,
+  description TEXT,
+  start_time TIMESTAMP WITH TIME ZONE NOT NULL,
+  end_time TIMESTAMP WITH TIME ZONE NOT NULL,
+  location TEXT,
+  capacity INTEGER,
+  image_url TEXT,
+  is_featured BOOLEAN DEFAULT FALSE,
+  category TEXT NOT NULL
+);
+
+-- Gallery Table
+CREATE TABLE gallery (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  title TEXT,
+  description TEXT,
+  image_url TEXT NOT NULL,
+  category TEXT,
+  is_featured BOOLEAN DEFAULT FALSE,
+  display_order INTEGER
+);
+
+-- Guest Messages Table
+CREATE TABLE guest_messages (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  name TEXT NOT NULL,
+  email TEXT,
+  message TEXT NOT NULL,
+  is_public BOOLEAN DEFAULT TRUE,
+  is_approved BOOLEAN DEFAULT FALSE
+);
+
+-- Weather Data Table
+CREATE TABLE weather_data (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  date DATE NOT NULL,
+  temperature_high INTEGER NOT NULL,
+  temperature_low INTEGER NOT NULL,
+  condition TEXT NOT NULL,
+  humidity INTEGER NOT NULL,
+  wind_speed INTEGER NOT NULL,
+  location TEXT DEFAULT 'Grootfontein, Namibia'
+);
+```
+
+### 🔐 Security & Access
+- **Row Level Security (RLS)**: Enabled on all tables
+- **Public Access**: Read-only for activities, gallery, weather data
+- **Protected Data**: RSVPs and guest messages require appropriate permissions
+- **API Keys**: Environment variables for secure access
+
+### 📡 Real-time Features
+- **Live RSVP Updates**: Real-time counter and guest list updates
+- **Activity Status**: Live activity status and capacity updates
+- **Guest Messages**: Real-time guest book submissions
+- **Weather Updates**: Live weather data for event planning
+
+### 🛠️ Service Layer
+```typescript
+// RSVP Operations
+import { rsvpService } from '@/services/rsvpService'
+
+// Create RSVP
+await rsvpService.create(rsvpData)
+
+// Get RSVP statistics
+const stats = await rsvpService.getStats()
+
+// Activities Operations
+import { activitiesService } from '@/services/activitiesService'
+
+// Get featured activities
+const featured = await activitiesService.getFeatured()
+```
+
+### 🔑 Environment Variables
+```env
+# Public (Frontend)
+VITE_SUPABASE_URL=https://jyvgjcagmmtiqgexqgwa.supabase.co
+VITE_SUPABASE_ANON_KEY=your_anon_key
+
+# Private (Server-side)
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+SUPABASE_SECRET_KEY=your_secret_key
+```
+
+### 📊 Integration Features
+- **TypeScript Types**: Auto-generated from database schema
+- **Error Handling**: Comprehensive error handling in service layer
+- **Caching**: Optimized queries with proper indexing
+- **Performance**: Connection pooling and query optimization
+- **Monitoring**: Built-in logging and performance metrics
 
 ## Development Commands
 
