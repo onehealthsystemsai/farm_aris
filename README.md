@@ -1,69 +1,62 @@
-# React + TypeScript + Vite
+# Farm Aris Grand Opening Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Premium event website for the Farm Aris Grand Opening in Grootfontein, Namibia. A safari-themed React application featuring advanced interactive components, gamification elements, and comprehensive RSVP management.
 
-Currently, two official plugins are available:
+## 🌿 About Farm Aris
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Farm Aris is located in Grootfontein, Namibia, and celebrates its grand opening with this interactive website that captures the essence of African safari and farm life.
 
-## Expanding the ESLint configuration
+## 🚀 Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **3D Animated Countdown** with particle effects
+- **Safari-themed Design** with custom animations
+- **Interactive RSVP System** with QR code generation
+- **Virtual Farm Tour** with 360° panoramic views
+- **Weather Integration** showing Grootfontein conditions
+- **Gamification Elements** including safari scavenger hunt
+- **Multi-language Support** (English/Afrikaans/German)
+- **Premium UX Features** with glass-morphism design
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠 Technology Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- **React 18** with TypeScript
+- **Vite** for build tooling
+- **Tailwind CSS** for styling
+- **Iconify React** for icons
+- **Custom Hooks** for state management
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 📦 Installation
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🎨 Design System
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Primary**: Safari Khaki (#C19A6B)
+- **Secondary**: Acacia Green (#4A5F3E)
+- **Accent**: Sunset Orange (#FF6B35)
+- **Typography**: Rubik (headers) + Montserrat (body)
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📁 Project Structure
+
+See `CLAUDE.md` for detailed technical documentation and implementation specifications.
+
+## 🌍 Location
+
+**Farm Aris**  
+Grootfontein, Namibia
+
+## 👥 Contributing
+
+This project is maintained by the onehealthsystemsai team for the Farm Aris grand opening event.
