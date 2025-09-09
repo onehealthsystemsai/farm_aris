@@ -108,25 +108,61 @@ const Hero: React.FC = () => {
           
           {/* Royal Elegant Farm Aris Title */}
           <div className="relative mb-6">
-            <div className="flex items-center justify-center gap-8 md:gap-12">
-              {/* Left Royal Ornament */}
+            <div className="flex items-center justify-center gap-6 md:gap-8 lg:gap-12">
+              {/* Left Royal Ornament - Elegant Wheat & Scrollwork */}
               <motion.div 
-                className="flex items-center gap-2"
-                initial={{ opacity: 0, x: -50 }}
+                className="flex items-center gap-3"
+                initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 1, delay: 0.5 }}
+                transition={{ duration: 1.2, delay: 0.4 }}
               >
+                {/* Ornate Scrollwork */}
+                <motion.div 
+                  className="relative"
+                  animate={{ rotate: [0, 2, -2, 0] }}
+                  transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <svg width="48" height="48" viewBox="0 0 48 48" className="text-yellow-300 opacity-90">
+                    <motion.path
+                      d="M8 24C8 16 16 8 24 8C32 8 40 16 40 24M40 24C40 32 32 40 24 40C16 40 8 32 8 24M24 12C20 12 16 16 16 20M32 28C28 28 24 32 24 36"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      animate={{ pathLength: [0, 1, 0] }}
+                      transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                  </svg>
+                  {/* Elegant center diamond */}
+                  <motion.div
+                    className="absolute inset-0 flex items-center justify-center"
+                    animate={{ scale: [0.8, 1.1, 0.8] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <div className="w-2 h-2 bg-yellow-300 transform rotate-45 opacity-80"></div>
+                  </motion.div>
+                </motion.div>
+
+                {/* Elegant Wheat Stalk */}
                 <motion.div
-                  animate={{ rotate: [0, 10, -10, 0] }}
+                  animate={{ y: [0, -3, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <Icon icon="solar:leaf-bold-duotone" className="text-yellow-200 text-3xl md:text-4xl opacity-70 transform rotate-12" />
+                </motion.div>
+
+                {/* Refined Golden Line */}
+                <motion.div
+                  className="w-12 md:w-20 h-px relative"
+                  style={{ 
+                    background: 'linear-gradient(90deg, transparent 0%, rgba(253, 224, 71, 0.8) 50%, transparent 100%)'
+                  }}
+                  animate={{ scaleX: [0.6, 1.2, 0.6], opacity: [0.4, 0.9, 0.4] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                 >
-                  <Icon icon="solar:crown-bold-duotone" className="text-yellow-300 text-4xl md:text-6xl opacity-80" />
+                  {/* Elegant dots */}
+                  <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1 h-1 bg-yellow-300 rounded-full opacity-60"></div>
                 </motion.div>
-                <motion.div
-                  className="w-16 md:w-24 h-0.5 bg-gradient-to-r from-transparent via-yellow-300 to-transparent"
-                  animate={{ scaleX: [0.7, 1, 0.7], opacity: [0.5, 0.8, 0.5] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                />
               </motion.div>
 
               {/* Main Title */}
@@ -167,23 +203,59 @@ const Hero: React.FC = () => {
                 </span>
               </motion.h2>
 
-              {/* Right Royal Ornament */}
+              {/* Right Royal Ornament - Mirrored Elegance */}
               <motion.div 
-                className="flex items-center gap-2"
-                initial={{ opacity: 0, x: 50 }}
+                className="flex items-center gap-3"
+                initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 1, delay: 0.5 }}
+                transition={{ duration: 1.2, delay: 0.6 }}
               >
+                {/* Refined Golden Line */}
                 <motion.div
-                  className="w-16 md:w-24 h-0.5 bg-gradient-to-r from-transparent via-yellow-300 to-transparent"
-                  animate={{ scaleX: [0.7, 1, 0.7], opacity: [0.5, 0.8, 0.5] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-                />
-                <motion.div
-                  animate={{ rotate: [0, -10, 10, 0] }}
+                  className="w-12 md:w-20 h-px relative"
+                  style={{ 
+                    background: 'linear-gradient(90deg, transparent 0%, rgba(253, 224, 71, 0.8) 50%, transparent 100%)'
+                  }}
+                  animate={{ scaleX: [0.6, 1.2, 0.6], opacity: [0.4, 0.9, 0.4] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 2 }}
                 >
-                  <Icon icon="solar:crown-bold-duotone" className="text-yellow-300 text-4xl md:text-6xl opacity-80" />
+                  {/* Elegant dots */}
+                  <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1 h-1 bg-yellow-300 rounded-full opacity-60"></div>
+                </motion.div>
+
+                {/* Elegant Wheat Stalk */}
+                <motion.div
+                  animate={{ y: [0, -3, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 2.5 }}
+                >
+                  <Icon icon="solar:leaf-bold-duotone" className="text-yellow-200 text-3xl md:text-4xl opacity-70 transform -rotate-12 scale-x-[-1]" />
+                </motion.div>
+
+                {/* Ornate Scrollwork - Mirrored */}
+                <motion.div 
+                  className="relative"
+                  animate={{ rotate: [0, -2, 2, 0] }}
+                  transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+                >
+                  <svg width="48" height="48" viewBox="0 0 48 48" className="text-yellow-300 opacity-90 transform scale-x-[-1]">
+                    <motion.path
+                      d="M8 24C8 16 16 8 24 8C32 8 40 16 40 24M40 24C40 32 32 40 24 40C16 40 8 32 8 24M24 12C20 12 16 16 16 20M32 28C28 28 24 32 24 36"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      animate={{ pathLength: [0, 1, 0] }}
+                      transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+                    />
+                  </svg>
+                  {/* Elegant center diamond */}
+                  <motion.div
+                    className="absolute inset-0 flex items-center justify-center"
+                    animate={{ scale: [0.8, 1.1, 0.8] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                  >
+                    <div className="w-2 h-2 bg-yellow-300 transform rotate-45 opacity-80"></div>
+                  </motion.div>
                 </motion.div>
               </motion.div>
             </div>
@@ -317,17 +389,24 @@ const Hero: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* CTA Buttons */}
+        {/* Premium Glassmorphic CTA Buttons */}
         <motion.div
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 1 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          className="flex flex-col sm:flex-row gap-6 justify-center"
         >
+          {/* RSVP Now - Premium Glassmorphic Button */}
           <motion.button
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
-            className="btn-primary flex items-center gap-2 justify-center"
+            className="group relative px-10 py-4 backdrop-blur-lg bg-gradient-to-r from-white/20 to-white/10 border border-white/30 rounded-full font-semibold text-white shadow-2xl overflow-hidden transition-all duration-500"
+            style={{
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.1) 100%)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1)',
+            }}
             onClick={() => {
               const element = document.getElementById('rsvp');
               if (element) {
@@ -336,13 +415,53 @@ const Hero: React.FC = () => {
               }
             }}
           >
-            <Icon icon="solar:letter-bold-duotone" className="text-xl" />
-            RSVP Now
+            {/* Animated Gradient Background */}
+            <motion.div
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              style={{
+                background: 'linear-gradient(135deg, rgba(199, 154, 107, 0.3) 0%, rgba(255, 107, 53, 0.3) 100%)',
+              }}
+              animate={{ 
+                background: [
+                  'linear-gradient(135deg, rgba(199, 154, 107, 0.3) 0%, rgba(255, 107, 53, 0.3) 100%)',
+                  'linear-gradient(135deg, rgba(255, 107, 53, 0.3) 0%, rgba(199, 154, 107, 0.3) 100%)',
+                  'linear-gradient(135deg, rgba(199, 154, 107, 0.3) 0%, rgba(255, 107, 53, 0.3) 100%)',
+                ]
+              }}
+              transition={{ duration: 3, repeat: Infinity }}
+            />
+            
+            {/* Button Content */}
+            <span className="relative flex items-center gap-3 justify-center font-montserrat font-bold text-lg">
+              <motion.div
+                animate={{ rotate: [0, 5, -5, 0] }}
+                transition={{ duration: 4, repeat: Infinity }}
+              >
+                <Icon icon="solar:letter-bold-duotone" className="text-xl" />
+              </motion.div>
+              RSVP Now
+            </span>
+            
+            {/* Subtle Inner Glow */}
+            <div 
+              className="absolute inset-0.5 rounded-full opacity-50 group-hover:opacity-70 transition-opacity duration-500"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
+              }}
+            />
           </motion.button>
+
+          {/* View Schedule - Elegant Glassmorphic Button */}
           <motion.button
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 bg-white/90 backdrop-blur-md text-gray-800 font-semibold rounded-full border-2 border-white hover:bg-white transition-all duration-300 flex items-center gap-2 justify-center"
+            className="group relative px-10 py-4 backdrop-blur-lg bg-gradient-to-r from-white/15 to-white/5 border border-white/20 rounded-full font-semibold text-white shadow-2xl overflow-hidden transition-all duration-500"
+            style={{
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.05) 100%)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.08)',
+            }}
             onClick={() => {
               const element = document.getElementById('schedule');
               if (element) {
@@ -351,8 +470,40 @@ const Hero: React.FC = () => {
               }
             }}
           >
-            <Icon icon="solar:calendar-date-bold-duotone" className="text-xl" />
-            View Schedule
+            {/* Animated Subtle Background */}
+            <motion.div
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              style={{
+                background: 'linear-gradient(135deg, rgba(74, 95, 62, 0.2) 0%, rgba(135, 206, 235, 0.2) 100%)',
+              }}
+              animate={{ 
+                background: [
+                  'linear-gradient(135deg, rgba(74, 95, 62, 0.2) 0%, rgba(135, 206, 235, 0.2) 100%)',
+                  'linear-gradient(135deg, rgba(135, 206, 235, 0.2) 0%, rgba(74, 95, 62, 0.2) 100%)',
+                  'linear-gradient(135deg, rgba(74, 95, 62, 0.2) 0%, rgba(135, 206, 235, 0.2) 100%)',
+                ]
+              }}
+              transition={{ duration: 4, repeat: Infinity }}
+            />
+            
+            {/* Button Content */}
+            <span className="relative flex items-center gap-3 justify-center font-montserrat font-bold text-lg">
+              <motion.div
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 3, repeat: Infinity }}
+              >
+                <Icon icon="solar:calendar-date-bold-duotone" className="text-xl" />
+              </motion.div>
+              View Schedule
+            </span>
+            
+            {/* Subtle Inner Highlight */}
+            <div 
+              className="absolute inset-0.5 rounded-full opacity-40 group-hover:opacity-60 transition-opacity duration-500"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%)',
+              }}
+            />
           </motion.button>
         </motion.div>
       </div>
