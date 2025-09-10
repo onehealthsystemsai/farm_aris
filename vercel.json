@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "name": "farmaris-event",
+  "buildCommand": "npx vite build",
+  "outputDirectory": "dist",
+  "installCommand": "npm install",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
+      ]
+    }
+  ],
+  "env": {
+    "VITE_SUPABASE_URL": "https://jyvgjcagmmtiqgexqgwa.supabase.co",
+    "VITE_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp5dmdqY2FnbW10aXFnZXhxZ3dhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc0MzA2MzQsImV4cCI6MjA3MzAwNjYzNH0.hftscrp2fspxoSFZ78V9xRYSg6y3Ag4Hx_5vEbiviwk",
+    "VITE_APP_NAME": "Farm Aris",
+    "VITE_APP_LOCATION": "Grootfontein, Namibia",
+    "VITE_EVENT_DATE": "17-18 Jan 2025",
+    "VITE_CONTACT_PHONE": "+264 81 123 4567",
+    "VITE_CONTACT_EMAIL": "info@farmaris.com"
+  }
+}
