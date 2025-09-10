@@ -1,38 +1,101 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Icon } from '@iconify/react';
+import ProfileCard from '../FarmProfile/ProfileCard';
+import ProfileModal from '../FarmProfile/ProfileModal';
+import { farmProfileData } from '../FarmProfile/profileData';
+import type { ProfileCardData } from '../FarmProfile/profileData';
+
+// Animated Counter Component
+interface CountingNumberProps {
+  end: number;
+  duration?: number;
+  suffix?: string;
+}
+
+const CountingNumber: React.FC<CountingNumberProps> = ({ end, duration = 2, suffix = '' }) => {
+  const [count, setCount] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
+    const startTime = Date.now();
+    const startCount = 0;
+
+    const updateCount = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / (duration * 1000), 1);
+      
+      // Easing function for smooth animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const currentCount = Math.floor(startCount + (end - startCount) * easeOutQuart);
+      
+      setCount(currentCount);
+
+      if (progress < 1) {
+        requestAnimationFrame(updateCount);
+      } else {
+        setCount(end);
+      }
+    };
+
+    const timer = setTimeout(() => {
+      updateCount();
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [end, duration, isVisible]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !isVisible) {
+            setIsVisible(true);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    const element = document.getElementById(`counting-number-${end}`);
+    if (element) {
+      observer.observe(element);
+    }
+
+    return () => {
+      if (element) {
+        observer.unobserve(element);
+      }
+    };
+  }, [end, isVisible]);
+
+  return (
+    <span id={`counting-number-${end}`}>
+      {count.toLocaleString()}{suffix}
+    </span>
+  );
+};
 
 const Welcome: React.FC = () => {
-  const features = [
-    {
-      icon: 'solar:home-smile-bold-duotone',
-      title: 'Family Heritage',
-      description: 'Three generations of farming excellence',
-      image: 'https://images.unsplash.com/photo-1547036967-23d11aacaee0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-    },
-    {
-      icon: 'solar:leaf-bold-duotone',
-      title: 'Sustainable Farming',
-      description: 'Eco-friendly practices for a better tomorrow',
-      image: 'https://images.unsplash.com/photo-1574263867128-2c5c88e7ecfb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-    },
-    {
-      icon: 'solar:users-group-rounded-bold-duotone',
-      title: 'Community Focus',
-      description: 'Growing together with our neighbors',
-      image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-    },
-    {
-      icon: 'solar:sun-bold-duotone',
-      title: 'Namibian Pride',
-      description: 'Celebrating our rich agricultural heritage',
-      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-    }
-  ];
+  const [selectedProfile, setSelectedProfile] = useState<ProfileCardData | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleViewDetails = (data: ProfileCardData) => {
+    setSelectedProfile(data);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedProfile(null);
+  };
+
 
   return (
     <section id="about" className="py-20 bg-gradient-to-b from-white to-namibian-blue/10">
-      <div className="section-padding max-w-7xl mx-auto">
+      <div className="section-padding">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -40,130 +103,171 @@ const Welcome: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
+          <div className="inline-block mb-6">
+            <img 
+              src="/images/aris logo.jpg" 
+              alt="Farm Aris Logo" 
+              className="w-32 h-32 object-contain"
+            />
+          </div>
+
           <h2 className="text-5xl md:text-6xl font-rubik font-black text-gradient mb-6">
             Welcome to Our Family
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-safari-khaki to-sunset-orange mx-auto mb-8"></div>
-          <p className="text-lg md:text-xl text-gray-700 font-montserrat max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-gray-700 font-montserrat leading-relaxed mb-12">
             Join us for a celebration of growth, community, and the rich agricultural heritage of Namibia. 
             The Aris family invites you to witness the culmination of years of dedication and hard work 
-            as we officially open our farm to the community.
+            as we officially open our farm to the community. Through sustainable business growth and the drive to make an impact on society and 
+            human livelihood, Nessipark Investments has created Farm Aris as a beacon of excellence in Grootfontein district, Otjozondjupa Region, Namibia. 
+            Discover the four pillars of excellence that define Farm Aris - from sustainable charcoal production 
+            to wildlife conservation, agricultural innovation, and premium hospitality experiences.
           </p>
+
+          {/* Premium Statistics Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.4 }}
+            className="mb-20"
+          >
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                {/* Hectares */}
+                <motion.div
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.6 }}
+                  whileHover={{ y: -8 }}
+                  className="text-center group"
+                >
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.5, delay: 0.8 }}
+                    className="text-3xl font-rubik font-black text-gray-600 mb-2"
+                  >
+                    <CountingNumber end={5000} duration={2.5} />
+                  </motion.div>
+                  <div className="text-xs font-montserrat font-semibold text-gray-500 uppercase tracking-[0.1em]">Hectares</div>
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: "2rem" }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 1.5 }}
+                    className="h-0.5 bg-gray-400 mx-auto mt-2 rounded-full"
+                  />
+                </motion.div>
+
+                {/* Crop Hectares */}
+                <motion.div
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.8 }}
+                  whileHover={{ y: -8 }}
+                  className="text-center group"
+                >
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.5, delay: 1.0 }}
+                    className="text-3xl font-rubik font-black text-gray-600 mb-2"
+                  >
+                    <CountingNumber end={100} duration={2.2} suffix="+" />
+                  </motion.div>
+                  <div className="text-xs font-montserrat font-semibold text-gray-500 uppercase tracking-[0.1em]">Crop Hectares</div>
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: "2rem" }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 1.7 }}
+                    className="h-0.5 bg-gray-400 mx-auto mt-2 rounded-full"
+                  />
+                </motion.div>
+
+                {/* Product Lines */}
+                <motion.div
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 1.0 }}
+                  whileHover={{ y: -8 }}
+                  className="text-center group"
+                >
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.5, delay: 1.2 }}
+                    className="text-3xl font-rubik font-black text-gray-600 mb-2"
+                  >
+                    <CountingNumber end={5} duration={1.8} />
+                  </motion.div>
+                  <div className="text-xs font-montserrat font-semibold text-gray-500 uppercase tracking-[0.1em]">Product Lines</div>
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: "2rem" }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 1.9 }}
+                    className="h-0.5 bg-gray-400 mx-auto mt-2 rounded-full"
+                  />
+                </motion.div>
+
+                {/* Safari Tents */}
+                <motion.div
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 1.2 }}
+                  whileHover={{ y: -8 }}
+                  className="text-center group"
+                >
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.5, delay: 1.4 }}
+                    className="text-3xl font-rubik font-black text-gray-600 mb-2"
+                  >
+                    <CountingNumber end={10} duration={1.5} />
+                  </motion.div>
+                  <div className="text-xs font-montserrat font-semibold text-gray-500 uppercase tracking-[0.1em]">Safari Tents</div>
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: "2rem" }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 2.1 }}
+                    className="h-0.5 bg-gray-400 mx-auto mt-2 rounded-full"
+                  />
+                </motion.div>
+              </div>
+          </motion.div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
-              className="group"
-            >
-              <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 h-full border border-gray-100 overflow-hidden">
-                {/* Background Image */}
-                <div className="relative h-48 overflow-hidden">
-                  <img
-                    src={feature.image}
-                    alt={feature.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    onError={(e) => {
-                      // Fallback to gradient if image fails to load
-                      e.currentTarget.style.display = 'none';
-                      const fallback = document.createElement('div');
-                      fallback.className = 'absolute inset-0 bg-gradient-to-br from-safari-khaki to-sunset-orange';
-                      e.currentTarget.parentElement?.appendChild(fallback);
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-black/40"></div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-white/90 backdrop-blur-md rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <Icon icon={feature.icon} className="text-safari-khaki text-3xl" />
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Content */}
-                <div className="p-6">
-                  <h3 className="text-xl font-rubik font-bold text-gray-800 mb-3">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-600 font-montserrat">
-                    {feature.description}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
+        {/* Profile Cards Grid - 2x2 Layout */}
+        <div className="grid md:grid-cols-2 gap-8 mb-16">
+          {farmProfileData.map((profileData) => (
+            <ProfileCard
+              key={profileData.id}
+              data={profileData}
+              onViewDetails={handleViewDetails}
+            />
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="relative"
-        >
-          <div className="bg-gradient-to-r from-acacia-green to-safari-khaki rounded-3xl p-12 text-white overflow-hidden">
-            <div className="relative z-10">
-              <div className="grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                  <h3 className="text-3xl md:text-4xl font-rubik font-bold mb-6">
-                    A Special Weekend Celebration
-                  </h3>
-                  <p className="text-white/90 font-montserrat mb-6 leading-relaxed">
-                    Experience the warmth of Namibian hospitality as we open our gates for two unforgettable days. 
-                    From traditional braai dinners under the stars to cultural performances and farm tours, 
-                    every moment is designed to create lasting memories.
-                  </p>
-                  <div className="flex flex-wrap gap-4">
-                    <div className="flex items-center gap-2">
-                      <Icon icon="solar:fire-bold-duotone" className="text-2xl text-savanna-gold" />
-                      <span className="font-montserrat">Bonfire Nights</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Icon icon="solar:music-note-2-bold-duotone" className="text-2xl text-savanna-gold" />
-                      <span className="font-montserrat">Live Music</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Icon icon="solar:cup-hot-bold-duotone" className="text-2xl text-savanna-gold" />
-                      <span className="font-montserrat">Traditional Cuisine</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="relative">
-                  <motion.div
-                    animate={{
-                      rotate: [0, 5, -5, 0],
-                    }}
-                    transition={{
-                      duration: 6,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                    className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20"
-                  >
-                    <h4 className="text-2xl font-rubik font-bold mb-4">Special Celebration</h4>
-                    <p className="text-white/90 font-montserrat mb-4">
-                      Join us in celebrating Mrs. Hanhabo's birthday on Friday evening!
-                    </p>
-                    <div className="flex items-center gap-3">
-                      <Icon icon="solar:cake-bold-duotone" className="text-3xl text-savanna-gold" />
-                      <span className="text-lg font-montserrat">Birthday Festivities</span>
-                    </div>
-                  </motion.div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Decorative Elements */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-white/10 to-transparent rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-white/10 to-transparent rounded-full blur-3xl"></div>
-          </div>
-        </motion.div>
+
       </div>
+
+      {/* Profile Modal */}
+      <ProfileModal
+        data={selectedProfile}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      />
     </section>
   );
 };

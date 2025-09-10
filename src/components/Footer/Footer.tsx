@@ -7,38 +7,43 @@ const Footer: React.FC = () => {
 
   const socialLinks = [
     {
-      icon: 'solar:facebook-bold-duotone',
+      icon: 'mdi:facebook',
       href: '#',
       label: 'Facebook',
       color: 'hover:text-blue-500'
     },
     {
-      icon: 'solar:instagram-bold-duotone',
+      icon: 'mdi:instagram',
       href: '#',
       label: 'Instagram',
       color: 'hover:text-pink-500'
     },
     {
-      icon: 'solar:twitter-bold-duotone',
+      icon: 'mdi:twitter',
       href: '#',
       label: 'Twitter',
       color: 'hover:text-blue-400'
+    },
+    {
+      icon: 'mdi:youtube',
+      href: '#',
+      label: 'YouTube',
+      color: 'hover:text-red-500'
+    },
+    {
+      icon: 'mdi:whatsapp',
+      href: 'https://wa.me/264811299623',
+      label: 'WhatsApp',
+      color: 'hover:text-green-500'
     }
   ];
 
-  const quickLinks = [
-    { label: 'RSVP', href: '#rsvp' },
-    { label: 'Event Details', href: '#schedule' },
-    { label: 'Location', href: '#location' },
-    { label: 'Contact', href: '#contact' }
-  ];
 
   return (
     <footer className="bg-gradient-to-br from-acacia-green to-earth-brown text-white">
       {/* Main Footer Content */}
       <div className="section-padding py-16">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-3 gap-8">
             {/* Brand Section */}
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -47,15 +52,19 @@ const Footer: React.FC = () => {
               transition={{ duration: 0.5 }}
             >
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-safari-khaki to-savanna-gold rounded-full flex items-center justify-center">
-                  <Icon icon="solar:leaf-bold-duotone" className="text-white text-2xl" />
+                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center p-1">
+                  <img 
+                    src="/images/aris logo.jpg" 
+                    alt="Farm Aris Logo" 
+                    className="w-full h-full object-contain rounded-full"
+                  />
                 </div>
                 <span className="font-rubik font-bold text-2xl">Farm Aris</span>
               </div>
-              <p className="text-white/80 font-montserrat mb-4">
+              <p className="text-white/80 font-montserrat mb-6">
                 Growing together in Namibia's heart
               </p>
-              <div className="flex gap-3">
+              <div className="flex flex-wrap gap-3">
                 {socialLinks.map((social, index) => (
                   <motion.a
                     key={index}
@@ -63,7 +72,7 @@ const Footer: React.FC = () => {
                     aria-label={social.label}
                     whileHover={{ scale: 1.1, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`w-10 h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white/80 hover:bg-white/20 transition-all duration-300 ${social.color}`}
+                    className={`w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white/80 hover:bg-white/20 transition-all duration-300 ${social.color}`}
                   >
                     <Icon icon={social.icon} className="text-xl" />
                   </motion.a>
@@ -128,36 +137,13 @@ const Footer: React.FC = () => {
               </ul>
             </motion.div>
 
-            {/* Quick Links */}
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <h3 className="font-rubik font-bold text-xl mb-4">Quick Links</h3>
-              <ul className="space-y-2">
-                {quickLinks.map((link, index) => (
-                  <li key={index}>
-                    <a
-                      href={link.href}
-                      className="text-white/80 font-montserrat hover:text-white hover:translate-x-2 inline-block transition-all duration-300"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
           </div>
-        </div>
       </div>
 
       {/* Bottom Bar */}
       <div className="border-t border-white/20">
         <div className="section-padding py-6">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
               <p className="text-white/60 font-montserrat text-sm">
                 © {currentYear} Aris Farm. All rights reserved.
               </p>
@@ -165,7 +151,6 @@ const Footer: React.FC = () => {
                 Growing sustainable communities in Namibia
               </p>
             </div>
-          </div>
         </div>
       </div>
 

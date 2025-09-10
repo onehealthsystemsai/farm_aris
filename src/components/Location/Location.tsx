@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Icon } from '@iconify/react';
+import InteractiveMap from './InteractiveMap';
 
 const Location: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'map' | 'directions'>('map');
@@ -34,7 +35,7 @@ const Location: React.FC = () => {
 
   return (
     <section id="location" className="py-20 bg-gradient-to-b from-namibian-blue/10 to-white">
-      <div className="section-padding max-w-7xl mx-auto">
+      <div className="section-padding">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -99,58 +100,13 @@ const Location: React.FC = () => {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
-                className="bg-white rounded-3xl shadow-xl overflow-hidden h-[500px]"
+                className="bg-white rounded-3xl shadow-xl overflow-hidden h-[580px]"
               >
-                <div className="relative h-full bg-gradient-to-br from-namibian-blue/20 to-safari-khaki/20">
-                  {/* Map placeholder with styled overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center">
-                      <Icon icon="solar:map-point-wave-bold-duotone" className="text-8xl text-safari-khaki mb-4 mx-auto" />
-                      <h3 className="text-2xl font-rubik font-bold text-gray-800 mb-4">
-                        Interactive Map
-                      </h3>
-                      <p className="text-gray-600 font-montserrat mb-6">
-                        GPS Coordinates: 19°11'42.3"S 18°18'39.9"E
-                      </p>
-                      <div className="flex gap-4 justify-center">
-                        <motion.a
-                          href="https://maps.google.com/?q=-19.195083,18.311083"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          className="px-6 py-3 bg-blue-500 text-white rounded-full font-montserrat font-semibold hover:bg-blue-600 transition-colors duration-300 flex items-center gap-2"
-                        >
-                          <Icon icon="solar:map-bold-duotone" className="text-xl" />
-                          Google Maps
-                        </motion.a>
-                        <motion.button
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          className="px-6 py-3 bg-purple-500 text-white rounded-full font-montserrat font-semibold hover:bg-purple-600 transition-colors duration-300 flex items-center gap-2"
-                        >
-                          <Icon icon="solar:navigation-bold-duotone" className="text-xl" />
-                          Waze
-                        </motion.button>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Decorative elements */}
-                  <div className="absolute top-10 right-10">
-                    <motion.div
-                      animate={{
-                        scale: [1, 1.2, 1],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                      }}
-                    >
-                      <Icon icon="solar:compass-bold-duotone" className="text-6xl text-safari-khaki/30" />
-                    </motion.div>
-                  </div>
-                </div>
+                <InteractiveMap
+                  latitude={-19.195082}
+                  longitude={18.311077}
+                  farmName="Farm Aris"
+                />
               </motion.div>
             ) : (
               <motion.div
@@ -217,7 +173,7 @@ const Location: React.FC = () => {
           </div>
 
           {/* Contact Information */}
-          <div className="space-y-6">
+          <div className="flex flex-col gap-6 h-[580px]">
             {/* Contact Cards */}
             {contacts.map((contact, index) => (
               <motion.div
@@ -251,43 +207,71 @@ const Location: React.FC = () => {
               </motion.div>
             ))}
 
-            {/* Important Notes */}
+            {/* Important Notes - Map Theme */}
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="bg-gradient-to-br from-safari-khaki to-sunset-orange rounded-2xl p-6 text-white"
+              className="bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-lg border border-gray-200/50 flex-grow"
             >
-              <h4 className="text-xl font-rubik font-bold mb-4">
-                Important Notes
-              </h4>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-2">
-                  <Icon icon="solar:parking-bold-duotone" className="text-xl flex-shrink-0 mt-1" />
-                  <span className="font-montserrat text-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 bg-gradient-to-br from-safari-khaki to-savanna-gold rounded-xl flex items-center justify-center">
+                  <Icon icon="solar:info-circle-bold-duotone" className="text-white text-xl" />
+                </div>
+                <h4 className="text-xl font-rubik font-bold text-gray-800">
+                  Important Notes
+                </h4>
+              </div>
+              <div className="space-y-4">
+                <motion.div
+                  whileHover={{ scale: 1.02, x: 4 }}
+                  className="flex items-start gap-3 p-3 bg-gray-50/80 rounded-xl transition-all duration-300"
+                >
+                  <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Icon icon="solar:parking-bold-duotone" className="text-blue-600 text-lg" />
+                  </div>
+                  <span className="font-montserrat text-sm text-gray-700 leading-relaxed">
                     Parking available on-site - follow the signs
                   </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Icon icon="solar:tent-bold-duotone" className="text-xl flex-shrink-0 mt-1" />
-                  <span className="font-montserrat text-sm">
+                </motion.div>
+                
+                <motion.div
+                  whileHover={{ scale: 1.02, x: 4 }}
+                  className="flex items-start gap-3 p-3 bg-gray-50/80 rounded-xl transition-all duration-300"
+                >
+                  <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Icon icon="solar:tent-bold-duotone" className="text-green-600 text-lg" />
+                  </div>
+                  <span className="font-montserrat text-sm text-gray-700 leading-relaxed">
                     Camping facilities available for overnight guests
                   </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Icon icon="solar:t-shirt-bold-duotone" className="text-xl flex-shrink-0 mt-1" />
-                  <span className="font-montserrat text-sm">
+                </motion.div>
+                
+                <motion.div
+                  whileHover={{ scale: 1.02, x: 4 }}
+                  className="flex items-start gap-3 p-3 bg-gray-50/80 rounded-xl transition-all duration-300"
+                >
+                  <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Icon icon="solar:t-shirt-bold-duotone" className="text-purple-600 text-lg" />
+                  </div>
+                  <span className="font-montserrat text-sm text-gray-700 leading-relaxed">
                     Bring safari-style clothing and comfortable walking shoes
                   </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Icon icon="solar:calendar-mark-bold-duotone" className="text-xl flex-shrink-0 mt-1" />
-                  <span className="font-montserrat text-sm">
+                </motion.div>
+                
+                <motion.div
+                  whileHover={{ scale: 1.02, x: 4 }}
+                  className="flex items-start gap-3 p-3 bg-gray-50/80 rounded-xl transition-all duration-300"
+                >
+                  <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Icon icon="solar:calendar-mark-bold-duotone" className="text-orange-600 text-lg" />
+                  </div>
+                  <span className="font-montserrat text-sm text-gray-700 leading-relaxed">
                     Please RSVP by September 15th for catering purposes
                   </span>
-                </li>
-              </ul>
+                </motion.div>
+              </div>
             </motion.div>
           </div>
         </div>

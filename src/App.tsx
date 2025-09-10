@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { AuthProvider } from './auth/AuthContext';
 import Navigation from './components/Navigation/Navigation';
 import Hero from './components/Hero/Hero';

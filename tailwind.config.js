@@ -25,6 +25,9 @@ export default {
         'fade-in': 'fadeIn 0.5s ease-in',
         'slide-up': 'slideUp 0.5s ease-out',
       },
+      perspective: {
+        '1000': '1000px',
+      },
       keyframes: {
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
