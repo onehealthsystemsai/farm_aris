@@ -8,21 +8,32 @@ if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error('Missing Supabase environment variables')
 }
 
-export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: true
-  },
-  db: {
-    schema: 'public'
-  },
-  global: {
-    headers: {
-      'X-Client-Info': 'farm-aris-website'
-    }
+// Create a singleton Supabase client to prevent multiple instances
+let supabaseInstance: ReturnType<typeof createClient<Database>> | null = null
+
+function getSupabaseClient() {
+  if (!supabaseInstance) {
+    supabaseInstance = createClient<Database>(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: true,
+        storageKey: 'farm-aris-auth',
+      },
+      db: {
+        schema: 'public'
+      },
+      global: {
+        headers: {
+          'X-Client-Info': 'farm-aris-website'
+        }
+      }
+    })
   }
-})
+  return supabaseInstance
+}
+
+export const supabase = getSupabaseClient()
 
 // Export types for use throughout the app
 export type { Database } from '../types/database.types'

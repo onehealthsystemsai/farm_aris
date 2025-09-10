@@ -1530,13 +1530,8 @@ const RSVP: React.FC = () => {
               </div>
             )}
 
-          </form>
-
-        </motion.div>
-      </div>
-
-      {/* Mobile Floating Navigation Buttons - Only when RSVP section is visible or user has started form */}
-      {(isRSVPSectionVisible || hasStartedForm) && !(currentStep === 3 && selectedDrinkCategory) && (
+            {/* Mobile Floating Navigation Buttons - Only when RSVP section is visible or user has started form */}
+            {(isRSVPSectionVisible || hasStartedForm) && !(currentStep === 3 && selectedDrinkCategory) && (
         <>
           {/* Mobile Previous Button - Bottom Left */}
           {currentStep > 1 && (
@@ -1587,8 +1582,12 @@ const RSVP: React.FC = () => {
               </>
             )}
           </motion.button>
-        </>
-      )}
+            </>
+            )}
+          </form>
+
+        </motion.div>
+      </div>
     </section>
   );
 };
