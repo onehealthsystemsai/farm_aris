@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 interface User {
   id: string;
@@ -31,6 +32,8 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     // Check for stored user session
@@ -46,6 +49,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setIsLoading(false);
   }, []);
 
+  // Handle automatic redirects based on auth state and current location
+  useEffect(() => {
+    if (!isLoading) {
+      if (user && location.pathname === '/') {
+        // If user is logged in and on homepage, redirect to dashboard
+        navigate('/admin');
+      } else if (!user && location.pathname === '/admin') {
+        // If user is not logged in and trying to access admin, redirect to home
+        navigate('/');
+      }
+    }
+  }, [user, location.pathname, isLoading, navigate]);
+
   const login = async (email: string, password: string): Promise<boolean> => {
     setIsLoading(true);
     try {
@@ -59,6 +75,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         };
         setUser(adminUser);
         localStorage.setItem('farmaris_user', JSON.stringify(adminUser));
+        // Redirect to dashboard after successful login
+        navigate('/admin');
         return true;
       }
       return false;
@@ -73,6 +91,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem('farmaris_user');
+    // Redirect to landing page after logout
+    navigate('/');
   };
 
   const value: AuthContextType = {

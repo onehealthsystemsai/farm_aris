@@ -33,7 +33,7 @@ const CountdownBox: React.FC<CountdownBoxProps> = ({ value, label }) => (
 );
 
 const Hero: React.FC = () => {
-  const targetDate = new Date('2025-01-17T09:00:00');
+  const targetDate = new Date('2026-01-17T09:00:00');
   const timeLeft = useCountdown(targetDate);
 
   return (
