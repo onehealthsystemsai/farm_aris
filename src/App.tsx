@@ -56,16 +56,16 @@ function App() {
   );
 
   return (
-    <AuthProvider>
-      <Router>
+    <Router>
+      <AuthProvider>
         <AnimatePresence>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/admin" element={<AdminDashboard />} />
           </Routes>
         </AnimatePresence>
-      </Router>
-    </AuthProvider>
+      </AuthProvider>
+    </Router>
   );
 }
 
