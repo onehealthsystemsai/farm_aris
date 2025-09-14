@@ -62,7 +62,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ data, isOpen, onClose }) =>
               e.currentTarget.parentElement?.appendChild(fallback);
             }}
           />
-          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="absolute inset-0 bg-black/20" />
           <div className="absolute bottom-4 left-4 right-4">
             <h3 className="text-2xl font-rubik font-bold text-white mb-2">
               {section.title}
@@ -120,7 +120,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ data, isOpen, onClose }) =>
           onClick={onClose}
         >
           {/* Backdrop */}
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
 
           {/* Modal Content */}
           <motion.div
@@ -223,7 +223,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ data, isOpen, onClose }) =>
                   transition={{ duration: 0.6 }}
                   className="mb-12 text-center"
                 >
-                  <div className={`w-24 h-1 bg-gradient-to-r ${data.gradient} mx-auto mb-6`}></div>
+                  <div className={`w-24 h-1 bg-gradient-to-r ${data.gradient} mx-auto mb-6`} />
                   <p className="text-xl font-montserrat text-gray-700 leading-relaxed max-w-3xl mx-auto">
                     Discover the excellence and innovation that defines our commitment to sustainable practices and community development.
                   </p>

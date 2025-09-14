@@ -8,6 +8,20 @@ const Location: React.FC = () => {
 
   const directions = [
     {
+      from: 'Windhoek',
+      steps: [
+        'Take the B1 highway north from Windhoek',
+        'Continue on B1 through Okahandja and Otjiwarongo',
+        'Turn right onto the B8 highway towards Grootfontein',
+        'Continue on B8 for approximately 150km to Grootfontein',
+        'In Grootfontein, continue north on B8 for 15km',
+        'Turn right at the Farm Aris sign',
+        'Follow the farm road for 3km to arrive at the main gate'
+      ],
+      duration: '5h 29m',
+      distance: '475.9 km'
+    },
+    {
       from: 'Grootfontein Town',
       steps: [
         'Head north on the B8 highway for 15km',
@@ -46,7 +60,7 @@ const Location: React.FC = () => {
           <h2 className="text-5xl md:text-6xl font-rubik font-black text-gradient mb-6">
             Find Us
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-safari-khaki to-sunset-orange mx-auto mb-8"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-safari-khaki to-sunset-orange mx-auto mb-8" />
           <p className="text-lg md:text-xl text-gray-700 font-montserrat max-w-3xl mx-auto">
             Farm Aris is located in the heart of Grootfontein, Namibia
           </p>

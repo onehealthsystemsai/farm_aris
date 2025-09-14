@@ -71,8 +71,21 @@ const Navigation: React.FC = () => {
                   whileHover={{ scale: 1.05 }}
                   className="flex items-center gap-3"
                 >
-                  <div className="w-12 h-12 bg-gradient-to-br from-safari-khaki to-savanna-gold rounded-full flex items-center justify-center">
-                    <Icon icon="solar:leaf-bold-duotone" className="text-white text-2xl" />
+                  <div className="w-12 h-12 rounded-full overflow-hidden bg-white shadow-md">
+                    <img
+                      src="/images/aris logo.jpg"
+                      alt="Farm Aris Logo"
+                      className="w-full h-full object-contain"
+                      onError={(e) => {
+                        // Fallback to icon if logo doesn't load
+                        const target = e.currentTarget;
+                        target.style.display = 'none';
+                        const parent = target.parentElement;
+                        if (parent) {
+                          parent.innerHTML = '<div class="w-full h-full bg-gradient-to-br from-safari-khaki to-savanna-gold rounded-full flex items-center justify-center"><svg class="text-white text-2xl" fill="currentColor" viewBox="0 0 24 24"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/></svg></div>';
+                        }
+                      }}
+                    />
                   </div>
                   <span className={`font-rubik font-bold text-2xl hidden sm:block ${
                     isScrolled ? 'text-gray-800' : 'text-gray-800'
@@ -214,7 +227,7 @@ const Navigation: React.FC = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed top-20 left-4 right-4 z-40 lg:hidden"
+            className="fixed top-24 left-4 right-4 z-40 lg:hidden"
           >
             <div className="bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-gray-200">
               <div className="flex flex-col gap-2">

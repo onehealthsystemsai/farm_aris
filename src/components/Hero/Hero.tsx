@@ -33,11 +33,11 @@ const CountdownBox: React.FC<CountdownBoxProps> = ({ value, label }) => (
 );
 
 const Hero: React.FC = () => {
-  const targetDate = new Date('2026-01-17T09:00:00');
+  const targetDate = new Date('2025-10-10T16:00:00');
   const timeLeft = useCountdown(targetDate);
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 sm:pt-24">
       {/* Background Video */}
       <div className="absolute inset-0 z-0">
         <div 
@@ -74,7 +74,7 @@ const Hero: React.FC = () => {
         <Icon icon="solar:bird-bold-duotone" className="text-white text-6xl" />
       </motion.div>
 
-      <div className="relative z-20 text-center px-3 sm:px-4 max-w-7xl mx-auto">
+      <div className="relative z-20 text-center px-3 sm:px-4 max-w-7xl mx-auto mt-8 sm:mt-0">
         {/* Main Title */}
         <motion.div
           initial={{ y: -50, opacity: 0 }}
@@ -156,7 +156,7 @@ const Hero: React.FC = () => {
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 1 }}
-          className="flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-6 justify-center px-4 sm:px-6"
+          className="flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-6 justify-center px-4 sm:px-6 pb-8 sm:pb-12"
         >
           {/* RSVP Now Button */}
           <motion.button
@@ -187,12 +187,12 @@ const Hero: React.FC = () => {
           <motion.button
             whileHover={{ scale: 1.08, y: -3 }}
             whileTap={{ scale: 0.95 }}
-            className="group relative px-6 sm:px-8 lg:px-12 py-3 sm:py-4 lg:py-5 backdrop-blur-md rounded-full font-bold text-gray-800 shadow-2xl overflow-hidden transition-all duration-300 w-full sm:w-auto"
+            className="group relative px-6 sm:px-8 lg:px-12 py-3 sm:py-4 lg:py-5 backdrop-blur-md rounded-full font-bold text-white shadow-2xl overflow-hidden transition-all duration-300 w-full sm:w-auto border border-white/30"
             style={{
-              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%)',
-              backdropFilter: 'blur(10px)',
-              WebkitBackdropFilter: 'blur(10px)',
-              boxShadow: '0 12px 40px rgba(0, 0, 0, 0.15), 0 0 0 2px rgba(255, 255, 255, 0.8), inset 0 1px 0 rgba(255, 255, 255, 1)',
+              background: 'linear-gradient(135deg, rgba(74, 95, 62, 0.9) 0%, rgba(74, 95, 62, 0.7) 50%, rgba(193, 154, 107, 0.8) 100%)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              boxShadow: '0 12px 40px rgba(74, 95, 62, 0.35), 0 4px 12px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
             }}
             onClick={() => {
               const element = document.getElementById('schedule');
@@ -203,9 +203,25 @@ const Hero: React.FC = () => {
             }}
           >
             <span className="relative flex items-center gap-2 sm:gap-3 justify-center font-montserrat font-black text-base sm:text-lg lg:text-xl z-10">
-              <Icon icon="solar:calendar-date-bold-duotone" className="text-xl sm:text-2xl text-safari-khaki drop-shadow-sm" />
-              <span className="tracking-wide text-gray-700">VIEW SCHEDULE</span>
+              <Icon icon="solar:calendar-date-bold-duotone" className="text-xl sm:text-2xl drop-shadow-lg" />
+              <span className="drop-shadow-lg tracking-wide uppercase">View Schedule</span>
             </span>
+            {/* Animated shine effect */}
+            <motion.div
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{
+                background: 'linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.15) 50%, transparent 60%)',
+              }}
+              animate={{
+                x: ['-100%', '200%'],
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                repeatDelay: 0.5,
+                ease: "easeInOut",
+              }}
+            />
           </motion.button>
         </motion.div>
       </div>
@@ -214,7 +230,7 @@ const Hero: React.FC = () => {
       <motion.div
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30"
       >
         <Icon icon="solar:double-alt-arrow-down-bold-duotone" className="text-white text-3xl opacity-60" />
       </motion.div>

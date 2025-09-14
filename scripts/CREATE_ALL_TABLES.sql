@@ -58,7 +58,44 @@ CREATE TABLE IF NOT EXISTS drink_options (
   display_order INTEGER DEFAULT 0
 );
 
--- 4. CREATE ATTENDANCE TABLE
+-- 4. CREATE RSVP TABLE
+-- =====================================================
+CREATE TABLE IF NOT EXISTS rsvps (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  
+  -- Personal Information
+  full_name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  phone TEXT NOT NULL,
+  
+  -- Event Details
+  attendees INTEGER DEFAULT 1,
+  additional_attendees JSONB DEFAULT '[]'::jsonb, -- Array of {fullName, phone}
+  days TEXT[] DEFAULT '{}', -- ['friday', 'saturday', 'camping']
+  
+  -- Drink Preferences
+  drinks TEXT[] DEFAULT '{}', -- Array of drink names with sizes
+  
+  -- Food Preferences
+  meal_preference TEXT CHECK (meal_preference IN ('standard', 'vegetarian', 'vegan', 'halal', 'kosher', 'gluten-free')),
+  special_requirements TEXT,
+  
+  -- Confirmation
+  confirmation_accepted BOOLEAN DEFAULT FALSE,
+  
+  -- Status
+  status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'confirmed', 'cancelled')),
+  
+  -- Admin fields
+  qr_code TEXT UNIQUE,
+  ticket_id TEXT UNIQUE,
+  notes TEXT,
+  is_vip BOOLEAN DEFAULT FALSE
+);
+
+-- 5. CREATE ATTENDANCE TABLE
 -- =====================================================
 CREATE TABLE IF NOT EXISTS attendance (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -76,7 +113,7 @@ CREATE TABLE IF NOT EXISTS attendance (
   companion_count INTEGER DEFAULT 0
 );
 
--- 5. CREATE USER FOOD SELECTIONS TABLE
+-- 6. CREATE USER FOOD SELECTIONS TABLE
 -- =====================================================
 CREATE TABLE IF NOT EXISTS user_food_selections (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -90,7 +127,7 @@ CREATE TABLE IF NOT EXISTS user_food_selections (
   UNIQUE(user_id, food_option_id, attendance_id)
 );
 
--- 6. CREATE USER DRINK SELECTIONS TABLE
+-- 7. CREATE USER DRINK SELECTIONS TABLE
 -- =====================================================
 CREATE TABLE IF NOT EXISTS user_drink_selections (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -104,16 +141,19 @@ CREATE TABLE IF NOT EXISTS user_drink_selections (
   UNIQUE(user_id, drink_option_id, attendance_id)
 );
 
--- 7. CREATE INDEXES FOR PERFORMANCE
+-- 8. CREATE INDEXES FOR PERFORMANCE
 -- =====================================================
 CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+CREATE INDEX IF NOT EXISTS idx_rsvps_email ON rsvps(email);
+CREATE INDEX IF NOT EXISTS idx_rsvps_status ON rsvps(status);
+CREATE INDEX IF NOT EXISTS idx_rsvps_created_at ON rsvps(created_at);
 CREATE INDEX IF NOT EXISTS idx_attendance_user_id ON attendance(user_id);
 CREATE INDEX IF NOT EXISTS idx_attendance_rsvp_id ON attendance(rsvp_id);
 CREATE INDEX IF NOT EXISTS idx_attendance_status ON attendance(attendance_status);
 CREATE INDEX IF NOT EXISTS idx_user_food_selections_user_id ON user_food_selections(user_id);
 CREATE INDEX IF NOT EXISTS idx_user_drink_selections_user_id ON user_drink_selections(user_id);
 
--- 8. CREATE UPDATE TRIGGER FOR updated_at
+-- 9. CREATE UPDATE TRIGGER FOR updated_at
 -- =====================================================
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
@@ -126,17 +166,37 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER update_users_updated_at BEFORE UPDATE ON users
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
--- 9. ENABLE ROW LEVEL SECURITY
+CREATE TRIGGER update_rsvps_updated_at BEFORE UPDATE ON rsvps
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+-- 10. ENABLE ROW LEVEL SECURITY
 -- =====================================================
 ALTER TABLE users ENABLE ROW LEVEL SECURITY;
+ALTER TABLE rsvps ENABLE ROW LEVEL SECURITY;
 ALTER TABLE food_options ENABLE ROW LEVEL SECURITY;
 ALTER TABLE drink_options ENABLE ROW LEVEL SECURITY;
 ALTER TABLE attendance ENABLE ROW LEVEL SECURITY;
 ALTER TABLE user_food_selections ENABLE ROW LEVEL SECURITY;
 ALTER TABLE user_drink_selections ENABLE ROW LEVEL SECURITY;
 
--- 10. CREATE RLS POLICIES
+-- 11. CREATE RLS POLICIES
 -- =====================================================
+
+-- RSVPs are insertable by anonymous users (for form submissions)
+CREATE POLICY "Allow anonymous RSVP insertions" ON rsvps
+  FOR INSERT TO anon WITH CHECK (true);
+
+-- RSVPs are insertable by authenticated users
+CREATE POLICY "Allow authenticated RSVP insertions" ON rsvps
+  FOR INSERT TO authenticated WITH CHECK (true);
+
+-- RSVPs are viewable by authenticated users (for dashboard)
+CREATE POLICY "RSVPs viewable by authenticated users" ON rsvps
+  FOR SELECT TO authenticated USING (true);
+
+-- RSVPs are updatable by authenticated users (for admin management)
+CREATE POLICY "RSVPs updatable by authenticated users" ON rsvps
+  FOR UPDATE TO authenticated USING (true);
 
 -- Food options are viewable by everyone
 CREATE POLICY "Food options are viewable by everyone" ON food_options
@@ -166,7 +226,7 @@ CREATE POLICY "Food selections viewable by all" ON user_food_selections
 CREATE POLICY "Drink selections viewable by all" ON user_drink_selections
   FOR SELECT USING (true);
 
--- 11. INSERT SAMPLE DATA
+-- 12. INSERT SAMPLE DATA
 -- =====================================================
 
 -- Insert sample food options
@@ -202,10 +262,59 @@ VALUES
   ('jane.smith@example.com', 'Jane Smith', '+264813456789', 'attendee')
 ON CONFLICT (email) DO NOTHING;
 
+-- Insert sample RSVPs
+INSERT INTO rsvps (
+  full_name, email, phone, attendees, additional_attendees, days, drinks, 
+  meal_preference, special_requirements, confirmation_accepted, status
+)
+VALUES 
+  (
+    'John Doe', 
+    'john.doe@example.com', 
+    '+264812345678', 
+    2,
+    '[{"fullName": "Jane Doe", "phone": "+264813456789"}]'::jsonb,
+    ARRAY['friday', 'saturday'],
+    ARRAY['Windhoek Lager (330ml)', 'Farm Wine Selection (150ml)', 'Rooibos Tea (Cup)'],
+    'standard',
+    'No allergies',
+    true,
+    'confirmed'
+  ),
+  (
+    'Jane Smith', 
+    'jane.smith@example.com', 
+    '+264813456789', 
+    1,
+    '[]'::jsonb,
+    ARRAY['saturday'],
+    ARRAY['Fresh Farm Juice (250ml)', 'Rock Shandy (300ml)'],
+    'vegetarian',
+    'Gluten-free options preferred',
+    true,
+    'confirmed'
+  ),
+  (
+    'Minister Williams', 
+    'minister@government.na', 
+    '+264811111111', 
+    3,
+    '[{"fullName": "Mrs Williams", "phone": "+264812222222"}, {"fullName": "Security Detail", "phone": "+264813333333"}]'::jsonb,
+    ARRAY['friday', 'saturday', 'camping'],
+    ARRAY['Amarula (50ml)', 'Farm Wine Selection (150ml)', 'Sparkling Water (250ml)', 'Windhoek Lager (330ml)'],
+    'halal',
+    'VIP dietary requirements, security protocols required',
+    true,
+    'confirmed'
+  )
+ON CONFLICT DO NOTHING;
+
 -- Success message
 DO $$
 BEGIN
   RAISE NOTICE '✅ All tables created successfully!';
-  RAISE NOTICE '✅ Sample data inserted!';
+  RAISE NOTICE '✅ RSVP table with comprehensive form data structure created!';
+  RAISE NOTICE '✅ Sample data inserted including test RSVPs!';
+  RAISE NOTICE '📊 Ready for dashboard integration!';
   RAISE NOTICE '🎉 Farm Aris database setup complete!';
 END $$;

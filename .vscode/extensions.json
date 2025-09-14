@@ -1,0 +1,33 @@
+{
+  "recommendations": [
+    // Essential for JSX Error Prevention
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    
+    // TypeScript and React Support
+    "ms-vscode.vscode-typescript-next",
+    "bradlc.vscode-tailwindcss",
+    
+    // JSX and React Enhancements
+    "formulahendry.auto-rename-tag",
+    "christian-kohler.path-intellisense",
+    "ms-vscode.vscode-json",
+    
+    // Bracket Matching and Visual Aids
+    "CoenraadS.bracket-pair-colorizer-2",
+    "oderwat.indent-rainbow",
+    
+    // Git Integration
+    "eamodio.gitlens",
+    
+    // Additional Helpful Extensions
+    "ms-vscode.vscode-npm-script",
+    "christian-kohler.npm-intellisense",
+    "streetsidesoftware.code-spell-checker"
+  ],
+  "unwantedRecommendations": [
+    // Extensions that might conflict with our setup
+    "ms-vscode.vscode-js-debug-nightly",
+    "ms-vscode.js-debug-nightly"
+  ]
+}

@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build outputs
+dist/
+build/
+.next/
+.nuxt/
+.output/
+
+# Environment files
+.env
+.env.local
+.env.production
+.env.development
+
+# Generated files
+*.min.js
+*.min.css
+coverage/
+.nyc_output/
+
+# Documentation
+CHANGELOG.md
+LICENSE
+
+# Configuration files that shouldn't be formatted
+.gitignore
+.eslintignore
+
+# Image and media files
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.ico
+*.svg
+*.webp
+
+# Other
+.DS_Store
+*.log

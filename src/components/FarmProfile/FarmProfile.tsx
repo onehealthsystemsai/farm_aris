@@ -24,10 +24,10 @@ const FarmProfile: React.FC = () => {
     <section id="farm-profile" className="py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-safari-khaki rounded-full blur-3xl"></div>
-        <div className="absolute bottom-40 right-20 w-40 h-40 bg-sunset-orange rounded-full blur-3xl"></div>
-        <div className="absolute top-60 right-40 w-24 h-24 bg-acacia-green rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-40 w-36 h-36 bg-namibian-blue rounded-full blur-3xl"></div>
+        <div className="absolute top-20 left-10 w-32 h-32 bg-safari-khaki rounded-full blur-3xl" />
+        <div className="absolute bottom-40 right-20 w-40 h-40 bg-sunset-orange rounded-full blur-3xl" />
+        <div className="absolute top-60 right-40 w-24 h-24 bg-acacia-green rounded-full blur-3xl" />
+        <div className="absolute bottom-20 left-40 w-36 h-36 bg-namibian-blue rounded-full blur-3xl" />
       </div>
 
       <div className="section-padding max-w-7xl mx-auto relative z-10">
@@ -57,7 +57,7 @@ const FarmProfile: React.FC = () => {
           <h2 className="text-5xl md:text-6xl font-rubik font-black text-gradient mb-6">
             Farm Aris Excellence
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-safari-khaki to-sunset-orange mx-auto mb-8"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-safari-khaki to-sunset-orange mx-auto mb-8" />
           <p className="text-lg md:text-xl text-gray-700 font-montserrat max-w-3xl mx-auto leading-relaxed">
             Discover the four pillars of excellence that define Farm Aris - from sustainable charcoal production 
             to wildlife conservation, agricultural innovation, and premium hospitality experiences.

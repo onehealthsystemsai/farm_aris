@@ -137,7 +137,7 @@ const Footer: React.FC = () => {
               </ul>
             </motion.div>
 
-          </div>
+        </div>
       </div>
 
       {/* Bottom Bar */}
@@ -150,12 +150,12 @@ const Footer: React.FC = () => {
               <p className="text-white/60 font-montserrat text-sm">
                 Growing sustainable communities in Namibia
               </p>
-            </div>
+          </div>
         </div>
       </div>
 
       {/* Decorative Element */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-safari-khaki via-savanna-gold to-sunset-orange"></div>
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-safari-khaki via-savanna-gold to-sunset-orange" />
     </footer>
   );
 };

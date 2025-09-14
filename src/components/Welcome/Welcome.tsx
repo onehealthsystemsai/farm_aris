@@ -114,7 +114,7 @@ const Welcome: React.FC = () => {
           <h2 className="text-5xl md:text-6xl font-rubik font-black text-gradient mb-6">
             Welcome to Our Family
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-safari-khaki to-sunset-orange mx-auto mb-8"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-safari-khaki to-sunset-orange mx-auto mb-8" />
           <p className="text-lg md:text-xl text-gray-700 font-montserrat leading-relaxed mb-12">
             Join us for a celebration of growth, community, and the rich agricultural heritage of Namibia. 
             The Aris family invites you to witness the culmination of years of dedication and hard work 
@@ -244,7 +244,7 @@ const Welcome: React.FC = () => {
                     className="h-0.5 bg-gray-400 mx-auto mt-2 rounded-full"
                   />
                 </motion.div>
-              </div>
+            </div>
           </motion.div>
         </motion.div>
 

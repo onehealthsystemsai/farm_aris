@@ -31,19 +31,14 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ data, onViewDetails }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
-      whileHover={{ y: -10 }}
-      className="group perspective-1000 h-[400px]"
+      className="group h-[400px]"
     >
-      <motion.div
-        animate={{ rotateY: isFlipped ? 180 : 0 }}
-        transition={{ duration: 0.8, ease: "easeInOut" }}
-        className="relative w-full h-full preserve-3d"
-        style={{ transformStyle: 'preserve-3d' }}
-      >
+      <div className="relative w-full h-full">
         {/* Front Side */}
-        <div 
-          className="absolute inset-0 backface-hidden rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 cursor-pointer"
-          style={{ backfaceVisibility: 'hidden' }}
+        <div
+          className={`absolute inset-0 rounded-3xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer ${
+            isFlipped ? 'opacity-0 pointer-events-none' : 'opacity-100'
+          }`}
           onClick={handleCardClick}
         >
           <div className="relative h-full">
@@ -51,7 +46,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ data, onViewDetails }) => {
             <img
               src={data.frontImage}
               alt={data.title}
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              className="w-full h-full object-cover"
               onError={(e) => {
                 e.currentTarget.style.display = 'none';
                 const fallback = document.createElement('div');
@@ -61,26 +56,15 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ data, onViewDetails }) => {
             />
             
             {/* Gradient Overlay */}
-            <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent`}></div>
+            <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent`} />
             
             {/* Content */}
             <div className="absolute inset-0 flex flex-col justify-between p-6">
               {/* Icon */}
               <div className="flex justify-end">
-                <motion.div
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    rotate: [0, 5, 0]
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="bg-white/20 backdrop-blur-md rounded-full p-3 border border-white/30"
-                >
+                <div className="bg-white/20 backdrop-blur-md rounded-full p-3 border border-white/30">
                   <Icon icon={data.icon} className="text-white text-3xl" />
-                </motion.div>
+                </div>
               </div>
 
               {/* Title & Subtitle */}
@@ -95,22 +79,18 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ data, onViewDetails }) => {
                 {/* Highlights */}
                 <div className="grid grid-cols-2 gap-2 mb-4">
                   {data.highlights.map((highlight, idx) => (
-                    <motion.div
+                    <div
                       key={idx}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: idx * 0.1 }}
                       className="flex items-center gap-2"
                     >
-                      <Icon 
-                        icon="solar:check-circle-bold-duotone" 
-                        className="text-savanna-gold text-sm flex-shrink-0" 
+                      <Icon
+                        icon="solar:check-circle-bold-duotone"
+                        className="text-savanna-gold text-sm flex-shrink-0"
                       />
                       <span className="text-xs font-montserrat text-white/80 leading-tight">
                         {highlight}
                       </span>
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
 
@@ -126,18 +106,16 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ data, onViewDetails }) => {
             </div>
 
             {/* Decorative Elements */}
-            <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-xl"></div>
-            <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-white/10 rounded-full blur-xl"></div>
+            <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-xl" />
+            <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-white/10 rounded-full blur-xl" />
           </div>
         </div>
 
         {/* Back Side - ENHANCED WITH BULLETPROOF SCROLLING */}
-        <div 
-          className="absolute inset-0 backface-hidden rounded-3xl shadow-lg bg-white"
-          style={{ 
-            backfaceVisibility: 'hidden',
-            transform: 'rotateY(180deg)'
-          }}
+        <div
+          className={`absolute inset-0 rounded-3xl shadow-lg bg-white transition-all duration-300 ${
+            isFlipped ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          }`}
         >
           {/* Header */}
           <div className={`bg-gradient-to-r ${data.gradient} p-4 text-white rounded-t-3xl flex-shrink-0`}>
@@ -342,10 +320,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ data, onViewDetails }) => {
             </motion.div>
           </div>
         </div>
-      </motion.div>
-
-      {/* Hover Glow Effect */}
-      <div className={`absolute inset-0 rounded-3xl bg-gradient-to-r ${data.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-300 -z-10 blur-xl`}></div>
+      </div>
     </motion.div>
   );
 };

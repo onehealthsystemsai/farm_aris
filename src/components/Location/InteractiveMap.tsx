@@ -254,8 +254,8 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ latitude, longitude, fa
 
       {/* Light Modern Overlay */}
       <div className="absolute inset-0 pointer-events-none z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-black/5 via-transparent to-black/10"></div>
-        <div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-black/5"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-black/5 via-transparent to-black/10" />
+        <div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-black/5" />
       </div>
 
       {/* Map Style Selector - Top Left */}
@@ -280,15 +280,15 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ latitude, longitude, fa
         </div>
       </div>
 
-      {/* Route Info - Top Right */}
-      <div className="absolute top-4 right-4 z-20">
+      {/* Route Info - Top Right - Hidden on mobile */}
+      <div className="absolute top-4 right-4 z-20 hidden md:block">
         <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg max-w-xs">
           <h3 className="font-rubik font-bold text-lg text-gray-800 mb-2">
             🛣️ Route to {farmName}
           </h3>
           {loadingRoute ? (
             <div className="flex items-center gap-2 text-gray-600">
-              <div className="animate-spin w-4 h-4 border-2 border-safari-khaki border-t-transparent rounded-full"></div>
+              <div className="animate-spin w-4 h-4 border-2 border-safari-khaki border-t-transparent rounded-full" />
               <span className="font-montserrat text-sm">Loading route...</span>
             </div>
           ) : routeData ? (

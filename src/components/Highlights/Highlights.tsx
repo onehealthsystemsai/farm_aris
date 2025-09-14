@@ -47,7 +47,7 @@ const Highlights: React.FC = () => {
           <h2 className="text-5xl md:text-6xl font-rubik font-black text-gradient mb-6">
             Event Highlights
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-safari-khaki to-sunset-orange mx-auto mb-8"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-safari-khaki to-sunset-orange mx-auto mb-8" />
           <p className="text-lg md:text-xl text-gray-700 font-montserrat max-w-3xl mx-auto">
             Experience the best of Farm Aris with these exciting activities and features
           </p>
@@ -88,25 +88,89 @@ const Highlights: React.FC = () => {
                     </div>
                   </div>
                 </div>
-                <div className="relative">
+                <div className="flex justify-center">
                   <motion.div
-                    animate={{
-                      rotate: [0, 5, -5, 0],
-                    }}
-                    transition={{
-                      duration: 6,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                    className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="relative"
                   >
-                    <h4 className="text-2xl font-rubik font-bold mb-4">Special Celebration</h4>
-                    <p className="text-white/90 font-montserrat mb-4">
-                      Join us in celebrating Mrs. Hanhabo's birthday on Friday evening!
-                    </p>
-                    <div className="flex items-center gap-3">
-                      <Icon icon="solar:cake-bold-duotone" className="text-3xl text-savanna-gold" />
-                      <span className="text-lg font-montserrat">Birthday Festivities</span>
+                    {/* Elegant Birthday Card */}
+                    <div className="bg-white/15 backdrop-blur-md rounded-3xl p-8 border border-white/25 shadow-lg max-w-lg">
+                      <div className="flex items-center gap-8">
+                        {/* Bigger Photo with Elegant Frame */}
+                        <div className="relative flex-shrink-0">
+                          <motion.div
+                            animate={{
+                              boxShadow: [
+                                "0 0 20px rgba(255,255,255,0.3)",
+                                "0 0 30px rgba(255,255,255,0.5)",
+                                "0 0 20px rgba(255,255,255,0.3)"
+                              ]
+                            }}
+                            transition={{
+                              duration: 4,
+                              repeat: Infinity,
+                              ease: "easeInOut"
+                            }}
+                            className="w-36 h-36 rounded-full overflow-hidden border-4 border-white/40 shadow-xl"
+                          >
+                            <img
+                              src="/images/misshan.jpeg"
+                              alt="Mrs. M.M. Hanhapo"
+                              className="w-full h-full object-cover object-top"
+                              onError={(e) => {
+                                // Elegant fallback
+                                const target = e.currentTarget;
+                                target.style.display = 'none';
+                                const parent = target.parentElement;
+                                if (parent) {
+                                  parent.innerHTML = '<div class="w-full h-full bg-gradient-to-br from-savanna-gold to-sunset-orange rounded-full flex items-center justify-center"><svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>';
+                                }
+                              }}
+                            />
+                          </motion.div>
+                          {/* Small Birthday Badge */}
+                          <motion.div
+                            animate={{ rotate: [0, 10, -10, 0] }}
+                            transition={{ duration: 3, repeat: Infinity }}
+                            className="absolute -bottom-1 -right-1 bg-gradient-to-r from-sunset-orange to-savanna-gold rounded-full p-1.5 shadow-md"
+                          >
+                            <Icon icon="solar:cake-bold-duotone" className="text-sm text-white" />
+                          </motion.div>
+                        </div>
+
+                        {/* Compact Info */}
+                        <div className="flex-1 min-w-0">
+                          <h4 className="text-2xl font-rubik font-bold text-white mb-2">
+                            Mrs. M.M. Hanhapo
+                          </h4>
+                          <p className="text-white/80 font-montserrat text-base mb-3">
+                            40th Birthday Celebration
+                          </p>
+                          <div className="flex items-center gap-3 text-base text-white/70">
+                            <Icon icon="solar:calendar-bold-duotone" className="text-savanna-gold flex-shrink-0 text-lg" />
+                            <span className="font-montserrat">Friday, Oct 10</span>
+                          </div>
+                        </div>
+
+                        {/* Subtle Sparkle */}
+                        <motion.div
+                          animate={{
+                            opacity: [0.3, 0.8, 0.3],
+                            rotate: [0, 180, 360]
+                          }}
+                          transition={{
+                            duration: 3,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                          className="flex-shrink-0"
+                        >
+                          <Icon icon="solar:star-bold-duotone" className="text-xl text-savanna-gold" />
+                        </motion.div>
+                      </div>
                     </div>
                   </motion.div>
                 </div>
@@ -114,8 +178,8 @@ const Highlights: React.FC = () => {
             </div>
             
             {/* Decorative Elements */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-white/10 to-transparent rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-white/10 to-transparent rounded-full blur-3xl"></div>
+            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-white/10 to-transparent rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-white/10 to-transparent rounded-full blur-3xl" />
           </div>
         </motion.div>
 
@@ -146,7 +210,7 @@ const Highlights: React.FC = () => {
                         e.currentTarget.parentElement?.appendChild(fallback);
                       }}
                     />
-                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300"></div>
+                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300" />
                     <div className="absolute inset-0 flex items-center justify-center">
                       <motion.div
                         animate={{
@@ -163,8 +227,8 @@ const Highlights: React.FC = () => {
                     </div>
                     
                     {/* Decorative circles */}
-                    <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-xl"></div>
-                    <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-white/10 rounded-full blur-xl"></div>
+                    <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-xl" />
+                    <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-white/10 rounded-full blur-xl" />
                   </div>
 
                   {/* Content */}
@@ -201,7 +265,7 @@ const Highlights: React.FC = () => {
                 </div>
 
                 {/* Hover effect border */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-safari-khaki to-sunset-orange opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-xl"></div>
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-safari-khaki to-sunset-orange opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-xl" />
               </div>
             </motion.div>
           ))}
